@@ -39,12 +39,13 @@ export class UralsjsViewBuilder<Lang extends string>
         const headHtml = this.head.join("\n");
         const bodyHtml = this.body.join("\n");
         const afterBodyHtml = this.afterBody.join("\n");
+        const oldTemplateFunc = this.template;
         this.template = (
             language: string = "", 
             head: string = "",
             body: string = "",
             afterBody: string = ""
-        ) => this.template(language, headHtml + head, bodyHtml + body, 
+        ) => oldTemplateFunc(language, headHtml + head, bodyHtml + body, 
             afterBodyHtml + afterBody);
         this.body = [];
         this.afterBody = [];

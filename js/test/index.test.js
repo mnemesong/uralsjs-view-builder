@@ -42,4 +42,21 @@ var replaceAll = function (str, search, replace) { return str.split("")
         var nominal = "<!DOCTYPE html>\n<html lang=\"ru\">\n    <head>\n        <meta charset='UTF-8'>\n        <meta http-equiv='X-UA-Compatible' content='IE=edge'>\n    </head>\n    <body>\n        <h1>Hello me!</h1>\n        <p>And hello to everyone!</p>\n    </body>\n        <script>console.log('Hello');</script>\n        <script>console.log('world');</script>\n</html>";
         assert.strictEqual(replaceAll(result, /\s*/, ""), replaceAll(nominal, /\s*/, ""));
     });
+    (0, mocha_1.it)("test 2", function () {
+        var builder = (new src_1.UralsjsViewBuilder(src_1.templateFunc, 'ru'))
+            .addAfterBodyHtmlBlock("<script>console.log('Hello');</script>")
+            .addHeadHtmlBlock("<meta charset='UTF-8'>")
+            .addBodyHtmlBlock("<h1>Hello me!</h1>")
+            .cache();
+        var result = builder.render();
+        var nominal = "<!DOCTYPE html>\n<html lang=\"ru\">\n    <head>\n        <meta charset='UTF-8'>\n    </head>\n    <body>\n        <h1>Hello me!</h1>\n    </body>\n        <script>console.log('Hello');</script>\n</html>";
+        assert.strictEqual(replaceAll(result, /\s*/, ""), replaceAll(nominal, /\s*/, ""));
+        var builder2 = builder
+            .addAfterBodyHtmlBlock("<script>console.log('world');</script>")
+            .addHeadHtmlBlock("<meta http-equiv='X-UA-Compatible' content='IE=edge'>")
+            .addBodyHtmlBlock("<p>And hello to everyone!</p>");
+        var result2 = builder.render();
+        var nominal2 = "<!DOCTYPE html>\n<html lang=\"ru\">\n    <head>\n        <meta charset='UTF-8'>\n        <meta http-equiv='X-UA-Compatible' content='IE=edge'>\n    </head>\n    <body>\n        <h1>Hello me!</h1>\n        <p>And hello to everyone!</p>\n    </body>\n        <script>console.log('Hello');</script>\n        <script>console.log('world');</script>\n</html>";
+        assert.strictEqual(replaceAll(result2, /\s*/, ""), replaceAll(nominal2, /\s*/, ""));
+    });
 });

@@ -28,16 +28,16 @@ var UralsjsViewBuilder = /** @class */ (function () {
         return this;
     };
     UralsjsViewBuilder.prototype.cache = function () {
-        var _this = this;
         var headHtml = this.head.join("\n");
         var bodyHtml = this.body.join("\n");
         var afterBodyHtml = this.afterBody.join("\n");
+        var oldTemplateFunc = this.template;
         this.template = function (language, head, body, afterBody) {
             if (language === void 0) { language = ""; }
             if (head === void 0) { head = ""; }
             if (body === void 0) { body = ""; }
             if (afterBody === void 0) { afterBody = ""; }
-            return _this.template(language, headHtml + head, bodyHtml + body, afterBodyHtml + afterBody);
+            return oldTemplateFunc(language, headHtml + head, bodyHtml + body, afterBodyHtml + afterBody);
         };
         this.body = [];
         this.afterBody = [];
