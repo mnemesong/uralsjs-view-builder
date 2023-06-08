@@ -15,3 +15,5 @@ export function template(
     ${afterBody}
 </html>`;
 }
+
+export type Template = typeof template;
